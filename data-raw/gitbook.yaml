@@ -1,0 +1,15 @@
+dev: svglite
+highlight: haddock
+split_by: section+number
+download: no
+config:
+    toc:
+        collapse: section
+        after: |
+          <li><a href="https://github.com/rstudio/bookdown" target="blank">Built by bookdown</a></li>
+    sharing:
+        github: yes
+        facebook: no
+        twitter: no
+    fontsettings:
+        theme: sepia

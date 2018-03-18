@@ -1,0 +1,6 @@
+
+
+```{r}
+gitbook <- yaml::yaml.load_file('data-raw/gitbook.yaml');
+devtools::use_data(gitbook, overwrite = T)
+```
