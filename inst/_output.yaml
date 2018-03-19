@@ -1,0 +1,11 @@
+bookdown::gitbook:
+  highlight: haddock
+  split_by: section+number
+  config:
+    download: no
+    sharing:
+      github: yes
+      facebook: no
+      twitter: no
+    fontsettings:
+      theme: sepia

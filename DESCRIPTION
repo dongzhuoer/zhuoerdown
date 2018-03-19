@@ -1,13 +1,16 @@
 Package: zhuoerdown
 Type: Package
-Title: library files for Zhuoer Dong's *down projects
+Title: Zhuoer Dong's *down format
 Version: 0.0.0.9000
 Authors@R: person("Zhuoer", "Dong", email = "dongzhuoer@mail.nankai.edu.cn", 
     role = c("aut", "cre"))
-Description: library files for Zhuoer Dong's *down projects.
+Description: Zhuoer Dong's *down format.
 License: AGPL-3.0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
-Imports: magrittr
+Imports: 
+    magrittr,
+    bookdown,
+    yaml

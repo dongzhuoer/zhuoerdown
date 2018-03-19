@@ -1,3 +1,6 @@
+data-raw/*/_book
+data-raw/*/_bookdown_files
+
 # History files
 .Rhistory
 .Rapp.history
