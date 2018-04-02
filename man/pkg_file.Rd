@@ -6,6 +6,3 @@
 \usage{
 pkg_file(..., mustWork = TRUE)
 }
-\description{
-get files in the package
-}

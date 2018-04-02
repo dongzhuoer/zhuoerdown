@@ -2,13 +2,14 @@
 % Please edit documentation in R/bookdown.R
 \name{gitbook}
 \alias{gitbook}
-\title{Title}
+\title{rebuild your favorite book with custom tuning}
 \usage{
-gitbook(url, repo = NULL)
+gitbook(url, custom_format = NULL, repo = NULL)
 }
 \arguments{
-\item{url}{}
-}
-\description{
-Title
+\item{url}{string. url of the original book}
+
+\item{custom_format}{string. path to the custom \code{_output.yaml} file}
+
+\item{repo}{string. the}
 }

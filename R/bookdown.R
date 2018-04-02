@@ -1,15 +1,16 @@
 
 
-#' Title
+#' @title rebuild your favorite book with custom tuning
 #'
-#' @param name
-#' @param url
+#' @param url string. url of the original book
+#' @param custom_format string. path to the custom `_output.yaml` file
+#' @param repo string. the
 #'
 #' @return
 #' @export
 #'
 #' @examples
-gitbook <- function(url, repo = NULL) {
+gitbook <- function(url, custom_format = NULL, repo = NULL) {
     if (is.null(repo)) repo = basename(url) %>% paste0('.gitbook');
 
     get_gitbook <- function(path){yaml::yaml.load_file(path)[['bookdown::gitbook']]};
@@ -24,10 +25,7 @@ gitbook <- function(url, repo = NULL) {
     #" Zhuoer Dong's cherished gitbook format
     common_gitbook <- get_gitbook(pkg_file('_output.yaml'))
     #" Zhuoer Dong's adjustment for this particular book
-    if (file.exists('_output.yaml'))
-    	this_gitbook <- get_gitbook('_output.yaml')
-    else
-    	this_gitbook <- list();
+    this_gitbook <- if (is.null(custom_format)) list() else get_gitbook(custom_format)
     #" merge options
     gitbook <- author_gitbook %>%
     	rmarkdown:::merge_output_options(common_gitbook) %>%
@@ -37,11 +35,6 @@ gitbook <- function(url, repo = NULL) {
     gitbook$config$toc$before %<>% c(paste0('<li><a href="https://github.com/dongzhuoer/', repo, '/archive/master.zip">download (unzip, open index.html)</a></li>'), .);
     gitbook$config$toc$before %<>% c(paste0('<li><a href="', url, '">original book</a></li>'), .);
 
-    #" to do: offline version
-    # print(gitbook);
-
-    #book_name <- basename(input_dir);
-
 	do.call(bookdown::gitbook, gitbook);
 }
 
@@ -49,5 +42,10 @@ gitbook <- function(url, repo = NULL) {
 # zhuoerdown::build_gitbook('bookdown-demo', 'zhuoer.netifly.com')
 # file.copy(zhuoerdown:::pkg_file('bookdown.css'), 'bookdown.css');
 
-# bookdown::render_book('', zhuoerdown::gitbook('.', 'https://bookdown.org/yihui/r-ninja/'), new_session = T)
+# setwd('data-raw/bookdown-demo')
+# bookdown::render_book('', gitbook('.'), new_session = T)
+# bookdown::render_book('', gitbook('.', '../_output.yaml'), new_session = T)
+
+# setwd('data-raw/r-ninja')
+# bookdown::render_book('', gitbook('.'), new_session = T)
 
