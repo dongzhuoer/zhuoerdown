@@ -1,6 +1,3 @@
-data-raw/*/_book
-data-raw/*/_bookdown_files
-
 # History files
 .Rhistory
 .Rapp.history
@@ -34,4 +31,6 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
-.Rproj.user
+
+# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
+rsconnect/

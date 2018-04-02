@@ -13,6 +13,8 @@ test_that("Testing bookdown-demo", {
 setwd('../../data-raw/r-ninja');
 
 test_that("Testing r-ninja", {
+    testthat::skip_if_not_installed('rmini')
+
     bookdown::render_book('', zhuoerdown::gitbook('https://bookdown.org/yihui/r-ninja/'), new_session = T);
     expect_true(T);
 });

@@ -4,12 +4,12 @@
 \alias{gitbook}
 \title{rebuild your favorite book with custom tuning}
 \usage{
-gitbook(url, custom_format = NULL, repo = NULL)
+gitbook(url, custom_format = NULL, download_link = NULL)
 }
 \arguments{
 \item{url}{string. url of the original book}
 
 \item{custom_format}{string. path to the custom \code{_output.yaml} file}
 
-\item{repo}{string. the}
+\item{download_link}{string. the url of the compressed file of latest book. if \code{NULL}, will use zhuoer's GitLab, repository name deduced from \code{url}}
 }

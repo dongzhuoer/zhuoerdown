@@ -4,14 +4,14 @@
 #'
 #' @param url string. url of the original book
 #' @param custom_format string. path to the custom `_output.yaml` file
-#' @param repo string. the
+#' @param download_link string. the url of the compressed file of latest book. if `NULL`, will use zhuoer's GitLab, repository name deduced from `url`
 #'
 #' @return
 #' @export
 #'
 #' @examples
-gitbook <- function(url, custom_format = NULL, repo = NULL) {
-    if (is.null(repo)) repo = basename(url) %>% paste0('.gitbook');
+gitbook <- function(url, custom_format = NULL, download_link = NULL) {
+    if (is.null(download_link)) download_link = basename(url) %>% paste0('https://gitlab.com/dongzhuoer/', ., '.gitbook/repository/master/archive.zip');
 
     get_gitbook <- function(path){yaml::yaml.load_file(path)[['bookdown::gitbook']]};
 
@@ -32,20 +32,16 @@ gitbook <- function(url, custom_format = NULL, repo = NULL) {
     	rmarkdown:::merge_output_options(this_gitbook)
     #" some tasks more complicated than simply override
     gitbook$css %<>% c('bookdown.css');
-    gitbook$config$toc$before %<>% c(paste0('<li><a href="https://github.com/dongzhuoer/', repo, '/archive/master.zip">download (unzip, open index.html)</a></li>'), .);
+    gitbook$config$toc$before %<>% c(paste0('<li><a href="', download_link, '">download (unzip, open index.html)</a></li>'), .);
     gitbook$config$toc$before %<>% c(paste0('<li><a href="', url, '">original book</a></li>'), .);
 
 	do.call(bookdown::gitbook, gitbook);
 }
-
-# zhuoerdown::build_gitbook('r-ninja', 'https://bookdown.org/yihui/r-ninja/')
-# zhuoerdown::build_gitbook('bookdown-demo', 'zhuoer.netifly.com')
-# file.copy(zhuoerdown:::pkg_file('bookdown.css'), 'bookdown.css');
 
 # setwd('data-raw/bookdown-demo')
 # bookdown::render_book('', gitbook('.'), new_session = T)
 # bookdown::render_book('', gitbook('.', '../_output.yaml'), new_session = T)
 
 # setwd('data-raw/r-ninja')
-# bookdown::render_book('', gitbook('.'), new_session = T)
+# bookdown::render_book('', gitbook('https://bookdown.org/yihui/r-ninja/'), new_session = T)
 
