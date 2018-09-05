@@ -4,13 +4,20 @@ Title: Zhuoer Dong's *down format
 Version: 0.0.0.9000
 Authors@R: person("Zhuoer", "Dong", email = "dongzhuoer@mail.nankai.edu.cn", 
     role = c("aut", "cre"))
-Description: Zhuoer Dong's *down format.
-License: AGPL-3.0
+Description: refer to https://dongzhuoer.github.io/zhuoerdown
+URL: https://github.com/dongzhuoer/zhuoerdown
+BugReports: https://github.com/dongzhuoer/zhuoerdown/issues
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
 Imports: 
     magrittr,
     bookdown,
     yaml
+Suggests: 
+    rmini
+Remotes:
+    yihui/rmini
+VignetteBuilder: knitr

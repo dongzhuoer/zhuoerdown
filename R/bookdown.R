@@ -45,3 +45,4 @@ gitbook <- function(url, custom_format = NULL, download_link = NULL) {
 # setwd('data-raw/r-ninja')
 # bookdown::render_book('', gitbook('https://bookdown.org/yihui/r-ninja/'), new_session = T)
 
+# setwd('../..')

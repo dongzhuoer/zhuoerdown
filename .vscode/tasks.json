@@ -3,32 +3,11 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "type": "shell",
-    "presentation": {
-        "reveal": "silent"
-    },
+    "problemMatcher": [],
     "tasks": [
-        {
-            "label": "data",
-            "command": "R -e \"rmarkdown::render('R-raw/data.Rmd')\"",
-            "problemMatcher": []
-        },
-        {
-            "label": "vignettes",
-            "command": "R -e \"rmarkdown::render('R-raw/vignettes.Rmd')\"",
-            "problemMatcher": []
-        },
         {
             "label": "document",
             "command": "R --slave -e 'devtools::document()'",
-            "problemMatcher": []
-        },
-        {
-            "label": "pkgdown",
-            "command": "R -e 'pkgdown::build_site()'",
-            "problemMatcher": [],
-            "dependsOn": [
-                "document"
-            ]
         },
         {
             "label": "test",
@@ -41,7 +20,6 @@
                 "kind": "test",
                 "isDefault": true
             },
-            "problemMatcher": []
         },
         {
             "label": "build",
@@ -53,7 +31,22 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": []
-        }
+        },
+        {
+            "label": "data",
+            "command": "R -e \"rmarkdown::render('R-raw/data.Rmd')\"",
+        },
+        {
+            "label": "vignettes",
+            "command": "R -e \"rmarkdown::render('R-raw/vignettes.Rmd')\"",
+        },
+        {
+            "label": "pkgdown",
+            "command": "R -e 'pkgdown::build_site()'",
+            "problemMatcher": [],
+            "dependsOn": [
+                "document"
+            ]
+        },
     ]
 }

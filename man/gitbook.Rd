@@ -13,3 +13,6 @@ gitbook(url, custom_format = NULL, download_link = NULL)
 
 \item{download_link}{string. the url of the compressed file of latest book. if \code{NULL}, will use zhuoer's GitLab, repository name deduced from \code{url}}
 }
+\description{
+rebuild your favorite book with custom tuning
+}

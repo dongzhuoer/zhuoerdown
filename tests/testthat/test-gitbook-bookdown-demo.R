@@ -1,20 +1,12 @@
-context("Testing gitbook")
+testthat::context("Testing gitbook")
+if (basename(getwd()) == 'testthat') setwd('../..')  # workspace is reset per file
 
 
-setwd('../../data-raw/bookdown-demo');
-
-test_that("Testing bookdown-demo", {
-    bookdown::render_book('', zhuoerdown::gitbook('https://bookdown.org/rstudio/bookdown-demo/'), new_session = T);
-    expect_true(T);
+testthat::test_that("Testing bookdown-demo", {
+    testthat::expect_true(T);
+    
+    setwd('data-raw/bookdown-demo');
+    bookdown::render_book('', zhuoerdown::gitbook('https://bookdown.org/rstudio/bookdown-demo/'), output_dir = '../../tests/testthat/output/bookdown-demo', new_session = T);
 });
 
 
-
-setwd('../../data-raw/r-ninja');
-
-test_that("Testing r-ninja", {
-    testthat::skip_if_not_installed('rmini')
-
-    bookdown::render_book('', zhuoerdown::gitbook('https://bookdown.org/yihui/r-ninja/'), new_session = T);
-    expect_true(T);
-});
