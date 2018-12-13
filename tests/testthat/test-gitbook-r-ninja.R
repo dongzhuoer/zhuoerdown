@@ -6,8 +6,9 @@ if (basename(getwd()) == 'testthat') setwd('../..')  # workspace is reset per fi
 testthat::test_that("Testing r-ninja", {
     testthat::skip_if_not_installed('rmini')
     
-    testthat::expect_true(T);
+    testthat::expect_true(T)
 
-    setwd('data-raw/r-ninja');
-    bookdown::render_book('', gitbook('https://bookdown.org/yihui/r-ninja/'), output_dir = '../../tests/testthat/output/r-ninja', new_session = T);
+    setwd('data-raw/r-ninja')
+    bookdown::render_book('', make_gitbook('https://bookdown.org/yihui/r-ninja/', '../_output-r-ninja.yaml'), output_dir = '../../tests/testthat/output/r-ninja', new_session = T)
+    file.remove('r-ninja.rds')
 });
