@@ -6,6 +6,10 @@
     "problemMatcher": [],
     "tasks": [
         {
+            "label": "trigger Docker build",
+            "command": "bash inst/trigger-docker.sh",
+        },
+        {
             "label": "document",
             "command": "R --slave -e 'roxygen2::roxygenize()'",
         },
