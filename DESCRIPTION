@@ -1,7 +1,7 @@
 Package: zhuoerdown
 Type: Package
 Title: Zhuoer Dong's *down format
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("Zhuoer", "Dong", email = "dongzhuoer@mail.nankai.edu.cn", 
     role = c("aut", "cre"))
 Description: refer to https://dongzhuoer.github.io/zhuoerdown
@@ -20,4 +20,4 @@ Suggests:
     rmini
 Remotes:
     yihui/rmini
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown

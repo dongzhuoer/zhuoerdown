@@ -1,6 +1,8 @@
 
 
-## zhuoerdown x.y.z
+# zhuoerdown 0.1.0
 
-1. feature 1
-1. feature 2
+## New features
+
+1. function for override book confguration with this package's, then user's
+1. add documentation
