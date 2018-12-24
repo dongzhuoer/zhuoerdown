@@ -6,10 +6,11 @@
 #' @param output_format_file string. path to the custom `_output.yaml` file
 #' @param download_link string. the url of the compressed file of latest book. if `NULL`, will use zhuoer's GitLab, repository name deduced from `url`
 #'
-#' @return
+#' @return list. Customized [bookdown::gitbook()], a R Markdown output format.
 #' @export
 #'
 #' @examples
+#' NULL
 make_gitbook <- function(url, output_format_file = NULL, download_link = NULL) {
     if (is.null(download_link)) download_link = basename(url) %>% paste0('https://gitlab.com/dongzhuoer/', ., '.gitbook/repository/master/archive.zip');
 

@@ -13,6 +13,12 @@ make_gitbook(url, output_format_file = NULL, download_link = NULL)
 
 \item{download_link}{string. the url of the compressed file of latest book. if \code{NULL}, will use zhuoer's GitLab, repository name deduced from \code{url}}
 }
+\value{
+list. Customized \code{\link[bookdown:gitbook]{bookdown::gitbook()}}, a R Markdown output format.
+}
 \description{
 rebuild your favorite book with custom tuning
+}
+\examples{
+NULL
 }
