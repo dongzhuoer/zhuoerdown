@@ -5,10 +5,7 @@
     "type": "shell",
     "problemMatcher": [],
     "tasks": [
-        {
-            "label": "trigger Docker build",
-            "command": "bash inst/trigger-docker.sh",
-        },
+
         {
             "label": "document",
             "command": "R --slave -e 'Rcpp::compileAttributes(); roxygen2::roxygenize()'",
