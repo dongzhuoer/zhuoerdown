@@ -17,6 +17,7 @@ Imports:
     bookdown,
     yaml
 Suggests: 
+    prettydoc,
     rmini
 Remotes:
     yihui/rmini
