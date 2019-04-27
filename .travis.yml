@@ -5,13 +5,11 @@ services: docker
 cache: 
   directories: $HOME/.local/lib/R/
 env:
-  matrix:
-    - job=build  
-    - job=test
-    - job=pkgdown
+  - job=build  
+  - job=test
+  - job=pkgdown
 
 before_install:
-  - echo $system_dep
   - if [ "$job" == "build" ]; then export tag=remotes; else if [ "$job" == "test" ]; then export tag=deverse; else export tag=pkgdown; fi; fi;
 install: 
   - docker run -dt -u `id -u`:`id -g` -v $TRAVIS_BUILD_DIR:$HOME/$TRAVIS_REPO_SLUG -w $HOME/$TRAVIS_REPO_SLUG -v $HOME/.local/lib/R:$HOME/.local/lib/R -e CI=true --name rlang0 dongzhuoer/rlang:$tag 2> /dev/null
