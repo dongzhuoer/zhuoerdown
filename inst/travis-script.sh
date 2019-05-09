@@ -10,12 +10,14 @@ mv $TRAVIS_BUILD_DIR/_bookdown_files/ $work_dir/input/$rmd_dir || echo 'cache no
 
 # install -------------
     ## create container
-docker run -dt -u `id -u`:`id -g` --name zhuoerdown0 -w $work_dir -v $work_dir:$work_dir -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -v $r_lib:$r_lib -e GITHUB_PAT=$GITHUB_PAT dongzhuoer/rlang:zhuoerdown 2> /dev/null
+docker run -dt -u `id -u`:`id -g` --name zhuoerdown0 -w $HOME -v $work_dir:$work_dir -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -v $r_lib:$r_lib -e GITHUB_PAT=$GITHUB_PAT dongzhuoer/rlang:zhuoerdown 2> /dev/null
     ## add user & group (assuming the image contains no user)
 docker exec -u root zhuoerdown0 groupadd `id -gn` -g `id -g`
 docker exec -u root zhuoerdown0 useradd $USER -u `id -u` -g `id -g`
-    ## install package
-docker exec -u root zhuoerdown0 bash -c "apt update && apt -y install $system_dep"
+    ## custom command
+docker exec -u root zhuoerdown0 bash -c "$root_command"
+docker exec zhuoerdown0 bash -c "$user_command"
+    ## install R packages
 docker exec zhuoerdown0 R --slave -e "$install_pkg"
 
 
@@ -25,10 +27,10 @@ mkdir $work_dir/output
 
 # script  -------------
 if [ "$zhuoerdown" = true ]; then
-    docker exec zhuoerdown0 R --slave -e "setwd('input/$rmd_dir'); bookdown::render_book('', zhuoerdown::make_gitbook('$url', '$custom_yaml'), output_dir = '$work_dir/output')"
+    docker exec -w $work_dir/input zhuoerdown0 R --slave -e "setwd('$rmd_dir'); bookdown::render_book('', zhuoerdown::make_gitbook('$url', '$custom_yaml'), output_dir = '$work_dir/output')"
     docker exec zhuoerdown0 R --slave -e "file.copy(zhuoerdown:::pkg_file('bookdown.css'), '$work_dir/output')"
 else
-    docker exec zhuoerdown0 R --slave -e "setwd('input/$rmd_dir'); bookdown::render_book('', output_dir = '$work_dir/output')"
+    docker exec -w $work_dir/input zhuoerdown0 R --slave -e "setwd('$rmd_dir'); bookdown::render_book('', output_dir = '$work_dir/output')"
 fi
     ## other files
 curl -o $work_dir/output/readme.md https://gist.githubusercontent.com/dongzhuoer/c19d456cf8c1bd977a2f7916f61beee8/raw/cc-license.md

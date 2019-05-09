@@ -14,6 +14,13 @@ remotes::install_github('dongzhuoer/zhuoerdown');
 
 ## Usage
 
+我个人使用
+
+quick： 懂 travis，定制 _output.yaml 和 global: env:
+
+bookdown 好，书多，free。中国网速慢，界面不喜欢。可离线的 zip
+
+
 
 We use `zhuoerdown` environment varible to distinguish building my own book from building other's book.
 
