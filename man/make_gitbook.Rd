@@ -7,11 +7,11 @@
 make_gitbook(url, output_format_file = NULL, download_link = NULL)
 }
 \arguments{
-\item{url}{string. url of the original book}
+\item{url}{string. url of the original book.}
 
-\item{output_format_file}{string. path to the custom \code{_output.yaml} file}
+\item{output_format_file}{string. path to the custom \code{_output.yaml} file.}
 
-\item{download_link}{string. the url of the compressed file of latest book. if \code{NULL}, will use zhuoer's GitLab, repository name deduced from \code{url}}
+\item{download_link}{string. the url of the compressed file of latest book. if \code{NULL}, will use \code{dongzhuoer/bookdown.dongzhuoer.com} repo and env variable \code{TRAVIS_BRANCH}.}
 }
 \value{
 list. Customized \code{\link[bookdown:gitbook]{bookdown::gitbook()}}, a R Markdown output format.

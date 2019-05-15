@@ -10,7 +10,7 @@ mv $TRAVIS_BUILD_DIR/_bookdown_files/ $work_dir/input/$rmd_dir || echo 'cache no
 
 # install -------------
     ## create container
-docker run -dt -u `id -u`:`id -g` --name zhuoerdown0 -w $HOME -v $work_dir:$work_dir -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -v $r_lib:$r_lib -e GITHUB_PAT=$GITHUB_PAT dongzhuoer/rlang:zhuoerdown 2> /dev/null
+docker run -dt -u `id -u`:`id -g` --name zhuoerdown0 -w $HOME -v $work_dir:$work_dir -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR -v $r_lib:$r_lib -e GITHUB_PAT=$GITHUB_PAT -e TRAVIS_BRANCH=$TRAVIS_BRANCH dongzhuoer/rlang:zhuoerdown 2> /dev/null
     ## add user & group (assuming the image contains no user)
 docker exec -u root zhuoerdown0 groupadd `id -gn` -g `id -g`
 docker exec -u root zhuoerdown0 useradd $USER -u `id -u` -g `id -g`
