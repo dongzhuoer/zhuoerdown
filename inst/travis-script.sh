@@ -18,6 +18,7 @@ docker exec -u root zhuoerdown0 useradd $USER -u `id -u` -g `id -g`
 docker exec -u root zhuoerdown0 bash -c "$root_command"
 docker exec zhuoerdown0 bash -c "$user_command"
     ## install R packages
+docker exec zhuoerdown0 R --slave -e "remotes::install_github('dongzhuoer/zhuoerdown')"
 docker exec zhuoerdown0 R --slave -e "$install_pkg"
 
 
