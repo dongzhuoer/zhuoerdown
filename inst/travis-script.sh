@@ -18,8 +18,8 @@ docker exec -u root zhuoerdown0 useradd $USER -u `id -u` -g `id -g`
 docker exec -u root zhuoerdown0 bash -c "$root_command"
 docker exec zhuoerdown0 bash -c "$user_command"
     ## install R packages
-docker exec zhuoerdown0 R --slave -e "remotes::install_github('dongzhuoer/zhuoerdown')"
-docker exec zhuoerdown0 R --slave -e "$install_pkg"
+docker exec zhuoerdown0 Rscript -e "remotes::install_github('dongzhuoer/zhuoerdown')"
+docker exec zhuoerdown0 Rscript -e "$install_pkg"
 
 
 # before_script -------------
@@ -28,10 +28,10 @@ mkdir $work_dir/output
 
 # script  -------------
 if [ "$zhuoerdown" = true ]; then
-    docker exec -w $work_dir/input zhuoerdown0 R --slave -e "setwd('$rmd_dir'); bookdown::render_book('', zhuoerdown::make_gitbook('$url', '$custom_yaml'), output_dir = '$work_dir/output')"
-    docker exec zhuoerdown0 R --slave -e "file.copy(zhuoerdown:::pkg_file('bookdown.css'), '$work_dir/output')"
+    docker exec -w $work_dir/input zhuoerdown0 Rscript -e "setwd('$rmd_dir'); bookdown::render_book('', zhuoerdown::make_gitbook('$url', '$custom_yaml'), output_dir = '$work_dir/output')"
+    docker exec zhuoerdown0 Rscript -e "file.copy(zhuoerdown:::pkg_file('bookdown.css'), '$work_dir/output')"
 else
-    docker exec -w $work_dir/input zhuoerdown0 R --slave -e "setwd('$rmd_dir'); bookdown::render_book('', output_dir = '$work_dir/output')"
+    docker exec -w $work_dir/input zhuoerdown0 Rscript -e "setwd('$rmd_dir'); bookdown::render_book('', output_dir = '$work_dir/output')"
 fi
     ## other files
 curl -o $work_dir/output/readme.md https://gist.githubusercontent.com/dongzhuoer/c19d456cf8c1bd977a2f7916f61beee8/raw/cc-license.md
