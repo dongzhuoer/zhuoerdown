@@ -1,4 +1,5 @@
 bookdown::gitbook:
+  split_by: section+number
   config:
     toc: 
       collapse: subsection

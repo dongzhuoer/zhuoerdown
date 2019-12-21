@@ -1,37 +1,4 @@
-# to make a universe .travis.yml, I move env $system_dep to repository settings
-dist: bionic
-language: minimal
-git:
-  depth: false
-  submodules: false
-cache: 
-  directories: $HOME/.local/lib/R/
-env:
-  matrix:
-    - job=build  
-    - job=test
-    - job=pkgdown
-
-before_install: if [ "$job" == "build" ]; then export tag=remotes; else if [ "$job" == "test" ]; then export tag=deverse; else export tag=pkgdown; fi; fi;
-install: 
-  # create container
-  - docker run -dt --name rlang0 -u `id -u`:`id -g` -w $HOME/$TRAVIS_REPO_SLUG -e CI=true -e GITHUB_PAT=$GITHUB_PAT -v $TRAVIS_BUILD_DIR:$HOME/$TRAVIS_REPO_SLUG -v $HOME/.local/lib/R:$HOME/.local/lib/R dongzhuoer/rlang:$tag 2> /dev/null
-  # add user & group (assuming the image contains no user)
-  - docker exec -u root rlang0 groupadd `id -gn` -g `id -g`
-  - docker exec -u root rlang0 useradd $USER -u `id -u` -g `id -g`
-  # install system dependency
-  - docker exec -u root rlang0 bash -c "apt update && apt -y install $system_dep"
-script:
-  # build
-  - if [ "$job" == "build" ];   then docker exec rlang0 Rscript -e "remotes::install_local(force = TRUE, upgrade = TRUE)"; fi;
-  # testthat
-  - if [ "$job" == "test" ];    then docker exec rlang0 Rscript -e "remotes::install_deps(force = TRUE,  upgrade = TRUE, dependencies = TRUE)"; fi;
-  - if [ "$job" == "test" ]; then docker exec rlang0 Rscript -e "pkgload::load_all(); testthat::test_dir('tests/testthat/'); testthat::test_dir('tests/testthat/', reporter = 'fail')"; fi; # default reports summary result, fail exit no-zero when a test fails
-  # pkgdown and deploy to GitHub Pages
-  - if [ "$job" == "pkgdown" ]; then docker exec rlang0 Rscript -e "remotes::install_local(force = TRUE, upgrade = TRUE, dependencies = TRUE)"; fi;
-  - if [ "$job" == "pkgdown" ]; then docker exec rlang0 Rscript -e "pkgdown::build_site()"; fi;
-  - if [ "$job" == "pkgdown" ]; then git clone --depth 1 -b gh-pages https://$GITHUB_PAT@github.com/$TRAVIS_REPO_SLUG.git $HOME/gh-pages && mv $HOME/gh-pages/.git pkgdown; fi;
-  - if [ "$job" == "pkgdown" ]; then cd pkgdown && rm .gitignore && git add --all && git commit -m "[skip ci] build pkgdown at `date '+%Y-%m-%d %H:%M:%S'`" --allow-empty && git push -f && cd ..; fi;
-
-notifications:
-  email: false
+import: dongzhuoer/minir:.travis.yml
+# `before_script` always overwrites existing, `deep_merge_prepend` just don't work as excepted, 
+#   "concatenates sequences (arrays) by either appending or prepending to the sequence in the importing config"
+before_install: apt="pandoc pandoc-citeproc"  
