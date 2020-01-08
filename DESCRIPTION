@@ -4,8 +4,8 @@ Title: Zhuoer Dong's *down format
 Version: 0.2.0
 Authors@R: person("Zhuoer", "Dong", email = "dongzhuoer@mail.nankai.edu.cn", 
     role = c("aut", "cre"))
-Description: refer to https://dongzhuoer.github.io/zhuoerdown
-URL: https://dongzhuoer.github.io/zhuoerdown, https://github.com/dongzhuoer/zhuoerdown
+Description: refer to https://github.com/dongzhuoer/zhuoerdown
+URL: https://pkgdown.dongzhuoer.com/dongzhuoer/zhuoerdown, https://github.com/dongzhuoer/zhuoerdown
 BugReports: https://github.com/dongzhuoer/zhuoerdown/issues
 License: file LICENSE
 Encoding: UTF-8
