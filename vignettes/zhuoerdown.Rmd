@@ -13,68 +13,19 @@ vignette: >
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
-```{r}
-library(zhuoerdown)
-```
 
 
-We use `zhuoerdown` environment varible to distinguish building my own book from building other's book.
+# Innovation
 
-Although some part may seem redundant for `zhuoerdown=true`, it make possible to share the same code for both approaches. 
+There are so many good bookdown books freely available online, with source code open. However, the network is so slow (especially in Nankai University), and I want to customize the appearance. To solve the first problem, I regularly fetch source code and build the book myself ^[To be precise, I build the book on Travis and `git clone` the output, with the bonus that others can also get the output (if they share similar preference with me).]. And the second one can be solved by overwriting `_output.yml`. Here comes this package, which glues the two solution together, i.e., overwrite (patially) `_output.yml` without editing the original file. I'm sorry if you find the package clumsy to use, since it's tailored for my personal usage,
 
 
 
-# `.travis.yml`
+# Usage
 
-We offer three examples:
+`make_gitbook()` overwrites original `_output.yml` by Zhuoer's favirote [_output.yml](https://github.com/dongzhuoer/zhuoerdown/blob/master/inst/_output.yml) (with [bookdown.css](https://github.com/dongzhuoer/zhuoerdown/blob/master/inst/bookdown.css)), then by user provided `_output.yml` (`output_format_file` parameter).
 
-- r4ds: https://github.com/dongzhuoer/build-r4ds/blob/master/.travis.yml
-- yihui-blogdown: https://github.com/dongzhuoer/build-yihui-blogdown/blob/master/.travis.yml
-- nutshell: https://github.com/dongzhuoer/nutshell/blob/master/.travis.yml
+It also add several links in TOC:
 
-
-
-# details
-
-1. Travis add all three tokens to environment variable
-
-# Overview
-
-There are mainly three directories:
-
-- `input/` for input `.Rmd` files
-- `output/` for GitBook output
-- `repo/` for deploying the output to GitLab
-
-The details of deploying should be moved to nutshell and add a link here.
-
-
-## parse package dependency
-
-```bash
-# possibly used pacakge
-cat *.Rmd | grep -Po '[\w\.]+(?=::)' | sort -u | sed 's/$/,/' 
-# cited package
-cat *.Rmd | grep -Po '(?<=\[@R-)[\w\.]+' | sort -u | sed 's/$/,/' 
-```
-
-
-# customize TOC
-
-- 章超过一页一般就collapse，如 r4ds, rmarkdown
-- 所有内容在 2～3页，展开显示，如 blogdown
-- 子标题严重不均匀，尤其要展开，如 bookdown
-
-
-
-# legacy technical details
-
-The biggest restraint is that `bookdown::render_book()` requires workspace at the book folder.
-
-For _blogdown_, `.Rmd` lives in `docs/`. If you `setwd()` to there, many paths would be relative to it (like `../../output`, `../../extra/_output.yaml`). 
-
-So I thought about adding a environment variable `input_sub_dir`. But _blogdown_ doesn't collaborate, it refer to the some source code of the package by `../R/***.R`.
-
-Suddenly, I realized that instead of setting every path relative to workspace, we can have `to_work_dir` to walk to `$work_dir`. In this way, every other path remains unchanged (`output`, `extra/_output.yaml`), user only need to customize `rmd_dir` & `to_work_dir`, like `rmd_dir=.; to_work_dir=..;`, `rmd_dir=docs; to_work_dir=../..;`.
-
-
+- `url` to respect the author's copyright
+- `download_link` to share the output with others

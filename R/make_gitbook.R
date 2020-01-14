@@ -10,7 +10,10 @@
 #' @export
 #'
 #' @examples
-#' NULL
+#' \dontrun{
+#'     make_gitbook("data-raw/_output/bookdown-demo.yml", "https://bookdown.org/rstudio/bookdown-demo/")
+#'     make_gitbook("../_output/r-ninja.yml", "https://bookdown.org/yihui/r-ninja/")
+#' }
 make_gitbook <- function(output_format_file = NULL, url = "https://example.com", download_link = "https://example.com") {
     get_gitbook_arg <- function(path){yaml::yaml.load_file(path)[["bookdown::gitbook"]]};
 

@@ -24,5 +24,8 @@ list. Customized \code{\link[bookdown:gitbook]{bookdown::gitbook()}}, a R Markdo
 rebuild your favorite book with custom tuning
 }
 \examples{
-NULL
+\dontrun{
+    make_gitbook("data-raw/_output/bookdown-demo.yml", "https://bookdown.org/rstudio/bookdown-demo/")
+    make_gitbook("../_output/r-ninja.yml", "https://bookdown.org/yihui/r-ninja/")
+}
 }
